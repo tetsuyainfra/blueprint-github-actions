@@ -31,7 +31,7 @@ jobs:
           # name: linux-debug.zip # こうすると名前を指定してしかDLできない
           path: all-artifacts # これで全部DLできる？
       - name: Download math result for job 1
-        uses: actions/download-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: debug-all.zip
           path: all-artifacts
