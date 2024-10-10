@@ -19,3 +19,13 @@ jobs:
     # with:
     #   config-path: .github/labeler.yml
     # secrets: inherit
+
+  release_job:
+    name: release from artifacts
+    needs: build-called-on-other-workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download math result for job 1
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-debug.zip
