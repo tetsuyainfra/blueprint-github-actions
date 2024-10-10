@@ -12,6 +12,11 @@ on:
 
   # Workflowを他のワークフローから呼べるように・・・
   workflow_call:
+    # outputs:
+    #   artifact_name:
+    #     description: "The output var"
+    #     value: ${{ jobs.build.outputs.artifact_name }}
+
 
   # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
@@ -26,6 +31,9 @@ jobs:
         env: [release, debug]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    outputs:
+      artifact_name: ${{ steps.upload_artifact.outputs.artifact_name }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -43,10 +51,13 @@ jobs:
           echo test, and deploy your project.
 
       - name: Archive production artifacts
+        id: upload_artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-${{ matrix.env }}.zip
+          name: ${{ matrix.os }}-${{ matrix.env }}-${{ github.sha }}.zip
           path: |
             README.md
             result.txt
           retention-days: 7
+
+  # build-after:
