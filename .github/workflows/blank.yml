@@ -54,7 +54,7 @@ jobs:
         id: upload_artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-${{ matrix.env }}-${{ github.sha }}.zip
+          name: ${{ matrix.os }}-${{ matrix.env }}-${{ github.sha }}
           path: |
             README.md
             result.txt
