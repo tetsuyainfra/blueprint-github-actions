@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build-called-on-other-workflow:
+  build:
     uses: tetsuyainfra/blueprint-github-actions/.github/workflows/blank.yml@main
     # with:
     #   config-path: .github/labeler.yml
@@ -22,11 +22,11 @@ jobs:
 
   release_job:
     name: release from artifacts
-    needs: build-called-on-other-workflow
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Build hash is
-        run: echo ${{ needs.build-called-on-other-workflow.outputs.git_hash }}
+        run: echo ${{ needs.build.outputs.git_hash }}
 
       - name: Download math result for job 1
         uses: actions/download-artifact@v4
