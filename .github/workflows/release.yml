@@ -46,8 +46,16 @@ jobs:
       - name: Upload artifact with renaming
         shell: bash
         run: |
-          find ./ -type f -exec rename s/${{ env.git_hash }}/${{ env.TAG_NAME }}/ {} \;
+          files=$(find ./ -type f)
+          for file in $files;
+          do
+            new_file=$(echo $file | sed -e "s/${{env.git_hash}}\(\(\.[a-z]\+\)\+\)/${{ env.TAG_NAME }}\1/" )
+            echo $file $new_file
+          done
 
+      #  -exec rename s/${{ env.git_hash }}/${{ env.TAG_NAME }}/ {} \;
+      - name: Display structure of downloaded files (2)
+        run: ls -R
 
       # - name: Upload Release File
       #   run: gh release upload ${{ github.event.ref.tags }}
