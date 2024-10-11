@@ -12,6 +12,10 @@ on:
 
   # Workflowを他のワークフローから呼べるように・・・
   workflow_call:
+    outputs:
+        git_hash:
+          description: "git hash on build time"
+          value: ${{ github.sha }}
     # outputs:
     #   artifact_name:
     #     description: "The output var"

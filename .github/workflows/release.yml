@@ -25,6 +25,9 @@ jobs:
     needs: build-called-on-other-workflow
     runs-on: ubuntu-latest
     steps:
+      - name: Build hash is
+        run: echo ${{ needs.build-called-on-other-workflow.outputs.git_hash }}
+
       - name: Download math result for job 1
         uses: actions/download-artifact@v4
 
@@ -34,7 +37,6 @@ jobs:
       - name: Upload artifact with renaming
         run: |
           find ./ -type f -exec echo {} \;
-          echo end
 
 
       # - name: Upload Release File
