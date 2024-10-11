@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         os: [win, linux]
-        env: [release, debug]
+        enviroment: [release, debug]
         # 同じプロパティを持つ場合、上書きする
         include:
           - os: win
@@ -48,7 +48,7 @@ jobs:
       artifact_name: ${{ steps.upload_artifact.outputs.artifact_name }}
 
     env:
-      OUTPUT_FILENAME: "${{ matrix.os }}-${{ matrix.env }}-${{ github.sha }}"
+      OUTPUT_FILENAME: "${{ matrix.os }}-${{ matrix.enviroment }}-${{ github.sha }}"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -57,7 +57,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world! ${{ matrix.os }}-${{ matrix.env }} | tee result.txt
+        run: echo Hello, world! ${{ matrix.os }}-${{ matrix.enviroment }} | tee result.txt
 
       - name: Matrix include test
         run: echo ${{ join(matrix.files, ' ') }}
@@ -67,7 +67,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Packaging binary
-        run: tar cvzf ${{ env.OUTPUT_FILENAME }} ${{ join(matrix.files, ' ') }}
+        run: tar cvzf ${{ env.OUTPUT_FILENAME }}.tar.gz ${{ join(matrix.files, ' ') }}
 
       - name: Archive production artifacts
         id: upload_artifact
