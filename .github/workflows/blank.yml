@@ -73,6 +73,7 @@ jobs:
         id: upload_artifact
         uses: actions/upload-artifact@v4
         with:
+          name: ${{ env.OUTPUT_FILENAME }}
           path: ${{ env.OUTPUT_FILENAME }}.tar.gz
           retention-days: 7
           compression-level: 0 # no compression
