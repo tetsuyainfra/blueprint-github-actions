@@ -44,6 +44,7 @@ jobs:
         run: ls -R
 
       - name: Upload artifact with renaming
+        shell: bash
         run: |
           find ./ -type f -exec rename s/${{ env.git_hash }}/${{ env.TAG_NAME }}/ {} \;
 
