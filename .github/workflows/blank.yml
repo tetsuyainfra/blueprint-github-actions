@@ -60,23 +60,20 @@ jobs:
         run: echo Hello, world! ${{ matrix.os }}-${{ matrix.env }} | tee result.txt
 
       - name: Matrix include test
-        run: echo "${{ join(matrix.files, ' ') }}"
+        run: echo ${{ join(matrix.files, ' ') }}
 
       - name: Env test
         run: echo "${{ env.OUTPUT_FILENAME }}"
 
       # Runs a set of commands using the runners shell
-      # - name: Packaging binary
-      #   run: tar cvzf hogehoge.tar.gz ${{ matrix.files }}
+      - name: Packaging binary
+        run: tar cvzf ${{ env.OUTPUT_FILENAME }} ${{ join(matrix.files, ' ') }}
 
       - name: Archive production artifacts
         id: upload_artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-${{ matrix.env }}-${{ github.sha }}
-          path: |
-            README.md
-            result.txt
+          path: ${{ env.OUTPUT_FILENAME }}
           retention-days: 7
           compression-level: 0 # no compression
 
