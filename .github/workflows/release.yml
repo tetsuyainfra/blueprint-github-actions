@@ -24,9 +24,12 @@ jobs:
     name: release from artifacts
     needs: build
     runs-on: ubuntu-latest
+    env:
+      git_hash: ${{ needs.build.outputs.git_hash }}
+
     steps:
       - name: Build hash is
-        run: echo ${{ needs.build.outputs.git_hash }}
+        run: echo ${{ env.git_hash }}
 
       - name: Get Version from tag
         run: echo "TAG_NAME=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -42,7 +45,7 @@ jobs:
 
       - name: Upload artifact with renaming
         run: |
-          find ./ -type f -exec echo {} \;
+          find ./ -type f -exec rename s/${{ env.git_hash }}/${{ env.TAG_NAME }}/ {} \;
 
 
       # - name: Upload Release File
