@@ -28,8 +28,11 @@ jobs:
       - name: Build hash is
         run: echo ${{ needs.build.outputs.git_hash }}
 
+      - name: Get Version from tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
       - name: Release Version is
-        run: echo ${{ github.ref }}
+        run: echo ${{ env.TAG_NAME }}
 
       - name: Download math result for job 1
         uses: actions/download-artifact@v4
