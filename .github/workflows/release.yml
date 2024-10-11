@@ -31,6 +31,12 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
 
+      - name: Upload artifact with renaming
+        run: |
+          find ./ -type f -exec echo {} \;
+          echo end
+
+
       # - name: Upload Release File
       #   run: gh release upload ${{ github.event.ref.tags }}
 
