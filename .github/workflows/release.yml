@@ -28,6 +28,9 @@ jobs:
       - name: Build hash is
         run: echo ${{ needs.build.outputs.git_hash }}
 
+      - name: Release Version is
+        run: echo ${{ github.ref }}
+
       - name: Download math result for job 1
         uses: actions/download-artifact@v4
 
