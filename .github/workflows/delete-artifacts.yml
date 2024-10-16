@@ -18,6 +18,8 @@ jobs:
       WORKFLOW: ${{ github.event.inputs.workflow }}
 
     steps:
+      - uses: actions/checkout@v4
+
       - run: gh workflow view "${WORKFLOW}"
       - name: Execute
         env:
