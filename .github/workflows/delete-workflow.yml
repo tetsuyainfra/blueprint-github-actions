@@ -16,6 +16,8 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       WORKFLOW: ${{ github.event.inputs.workflow }}
+    # SEE permission settings:
+    # https://docs.github.com/ja/rest/actions/workflow-runs?apiVersion=2022-11-28#delete-a-workflow-run
     permissions:
       actions: write
 
@@ -26,6 +28,7 @@ jobs:
       - name: Execute
         env:
             REPOSITORY: ${{ github.repository }}
+        # 4並列で実行するのはどうかなー
         run: |
           echo repo: ${REPOSITORY}
           echo WORKFLOW: ${WORKFLOW}
