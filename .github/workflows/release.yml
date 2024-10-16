@@ -78,7 +78,7 @@ jobs:
           files=$(find ./dest -type f)
           for file in $files;
           do
-            gh release upload ${tag#v} ${file}
+            gh release upload $tag ${file}
           done
 
 
