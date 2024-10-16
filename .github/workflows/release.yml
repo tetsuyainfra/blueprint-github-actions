@@ -30,6 +30,8 @@ jobs:
       git_hash: ${{ needs.build.outputs.git_hash }}
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Build hash is
         run: echo ${{ env.git_hash }}
 
@@ -68,7 +70,7 @@ jobs:
           echo tag: $tag
           gh release create "$tag" \
               --repo="$GITHUB_REPOSITORY" \
-              --title="${tag#v}" \
+              --title="Release Version ${tag#v}" \
               --generate-notes
 
           files=$(find ./ -type f)
