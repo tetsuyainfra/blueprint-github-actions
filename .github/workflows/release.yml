@@ -69,7 +69,10 @@ jobs:
               --title="${tag#v}" \
               --generate-notes
 
-          files=$(find ./ -type f -print0)
-          gh release upload ${tag#v} ${files}
+          files=$(find ./ -type f)
+          for file in $files;
+          do
+            gh release upload ${tag#v} ${file}
+          done
 
 
