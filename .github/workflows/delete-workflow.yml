@@ -28,5 +28,7 @@ jobs:
         env:
             REPOSITORY: ${{ github.repository }}
         run: |
+          echo repo: ${REPOSITORY}
+          echo WORKFLOW: ${WORKFLOW}
           gh run list --workflow "${WORKFLOW}" --limit 1000 --json databaseId,status --jq '.[] | select(.status == "completed") | .databaseId' \
-            | xargs -n 1 -I {} gh api -X DELETE repos/${REPOSITORY}/actions/runs/{}
+            | xargs -P 4 -I {} gh api -X DELETE repos/${REPOSITORY}/actions/runs/{}
